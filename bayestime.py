@@ -45,7 +45,7 @@ if __name__ == '__main__':
         p = pm.Deterministic('p', pm.math.sigmoid(alpha + beta * years))
     
         #使用Bernoulli似然函数，这是因为退市原因是一个二分类变量：强赎（编码为1）和到期（编码为0）
-        #果我们有基于某些解释变量（如存续年限）来预测一个事件会不会发生，那么Bernoulli分布是合适的选择
+        #如果我们有基于某些解释变量（如存续年限）来预测一个事件会不会发生，那么Bernoulli分布是合适的选择
         likelihood = pm.Bernoulli('likelihood', p=p, observed=reasons)
         
         # 采样
@@ -66,6 +66,8 @@ if __name__ == '__main__':
     median_p = np.median(posterior_p, axis=0)
 
     # 绘制不同存续时间条件下的强赎后验概率分布
+    #posterior_p 是一个矩阵，它包含了从后验分布中采样得到的不同存续年限下的强赎概率。
+    #矩阵的每一列对应 years_range 中的一个存续年限，每一行对应一组模型参数的采样结果
     plt.fill_between(years_range, np.percentile(posterior_p, 2.5, axis=0), np.percentile(posterior_p, 97.5, axis=0), alpha=0.5)
     plt.plot(years_range, median_p, label='后验概率中位数')
     plt.xlabel('存续年限')

@@ -46,7 +46,7 @@ if __name__=='__main__':
     print("近两年强赎比例:%f,近两年总数:%d,近两年强赎个数:%d" % (last_two_redeem_ratio,last_two_reason_jsl_count,last_two_reason_redeem_count))
  
 
-    last_two_fileout = filein.replace('in','last')
+    last_two_fileout = filein.replace('au','last')
     with pd.ExcelWriter(last_two_fileout, engine='xlsxwriter') as writer:
         last_two_years_jsl_df.to_excel(writer, sheet_name='last')
         print("近两年已退市转债输出:" + last_two_fileout)
@@ -63,10 +63,10 @@ if __name__=='__main__':
     
 
     redeem_small_jsl_df = quit_jsl_df[quit_jsl_df['发行规模'] <=5.0 ]
-    print("=小于5亿的剩余转债最后交易价格限分布==")
-    print(redeem_small_jsl_df['最后交易价格'].describe(percentiles = [0.2,0.4,0.5,0.6,0.8]))
+    print("=小于5亿的剩余转债强赎价格分布==")
+    print(redeem_small_jsl_df['强赎价格'].describe(percentiles = [0.2,0.4,0.5,0.6,0.8]))
     
-    fileout = filein.replace('in','small')
+    fileout = filein.replace('au','small')
     with pd.ExcelWriter(fileout, engine='xlsxwriter') as writer:
         redeem_small_jsl_df.to_excel(writer, sheet_name='small')
         print("已退市小规模转债输出:" + fileout)

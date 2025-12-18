@@ -1,8 +1,9 @@
 ﻿# -*- coding: utf-8 -*-
 
+import numpy as np
 import pandas as pd
 import pymc3 as pm
-import numpy as np
+
 import arviz as az
 import matplotlib.pyplot as plt
 # 支持中文
